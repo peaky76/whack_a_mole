@@ -4,6 +4,7 @@ const timeLeft = document.querySelectorAll('#time-left')
 let score = document.querySelectorAll('#score')
 
 let result = 0
+let currentTime = timeLeft.textContent
 
 function randomSquare() {
     square.forEach(className => {
@@ -18,7 +19,7 @@ function randomSquare() {
 
 square.forEach(id => {
     id.addEventListener('mouseup', () => {
-        if (id.id == hitPosition) {
+        if (id.id === hitPosition) {
             result = result + 1
             score.textContent = result
         }
@@ -31,3 +32,15 @@ function moveMole() {
 }
 
 moveMole()
+
+function countDown() {
+    currentTime--
+    timeLeft.textContent = currentTime
+
+    if (currentTime === 0) {
+        clearInterval(timerId)
+        alert('GAME OVER! Your final score is' + result)
+    }
+}
+
+let timerId = setInterval(countDown, 1000)
